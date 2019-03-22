@@ -1,0 +1,24 @@
+service: sls-stepfunctions
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  iamRoleStatements:
+   - Effect: "Allow"
+     Action:
+       - "states:StartExecution"
+     Resource: "arn:aws:states:us-east-1:XXXAWSACCOUNTXXX:stateMachine:XXXSTATEMACHINENAMEXXX"
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - http:
+          method: get
+          path: hello
+  init:
+    handler: handler.init
+    events:
+      - http:
+          path: init
+          method: get
